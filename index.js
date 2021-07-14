@@ -3,14 +3,25 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const multer = require('multer')
 const path = require('path')
+const dotenv = require('dotenv')
+const cors = require('cors')
 
 const app = express();
+
+app.use(cors())
+
+dotenv.config();
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 const userRoutes = require('./src/routes/user')
 const logowebRoutes = require('./src/routes/logoweb')
+const panduanRoutes = require('./src/routes/panduan')
+const jadwalKuliahRoutes = require('./src/routes/jadwalkuliah')
+const absensiRoutes = require('./src/routes/absensi')
+const dashboardRoutes = require('./src/routes/dashboard')
+const verifikasiToken = require('./src/routes/validate-token')
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -38,13 +49,17 @@ app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credential", "true")
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, Authorization, X-Requested-With, Content-Type, Accept, accessToken");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next();
 })
 
-app.use('/user', userRoutes)
-app.use('/logoweb', logowebRoutes)
+app.use('/v1/users', userRoutes)
+app.use('/v2/logoweb', logowebRoutes)
+app.use('/v3/panduan', panduanRoutes)
+app.use('/v4/jadwal-kuliah', jadwalKuliahRoutes)
+app.use('/v5/dashboard', verifikasiToken, dashboardRoutes)
+app.use('/v5/absensi', absensiRoutes)
 
 app.use((error, req, res, next) => {
     const status = error.errorStatus || 500;
@@ -56,7 +71,7 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT || 6300
 
 mongoose.connect('mongodb+srv://ridwan:ugELM2oeKdlMmVR9@cluster0.mtciq.mongodb.net/elearning?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
+    .then((res) => {
         app.listen(PORT, () => console.log(`Server connect on ${PORT}`))
     })
     .catch((err) => console.log(err))

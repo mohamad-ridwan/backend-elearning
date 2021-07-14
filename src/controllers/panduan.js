@@ -1,0 +1,47 @@
+const panduan = require('../models/panduan')
+
+exports.post = (req, res, next) => {
+    const id = req.body.id
+    const name = req.body.name
+    const icon = req.body.icon
+    const link = req.body.link
+    const nameBtnCollapse = req.body.name
+    const linkBtnCollapse = req.body.link
+
+    const post = new panduan({
+        id: id,
+        name: name,
+        icon: icon,
+        link: link
+    })
+
+    post.save()
+        .then(result => {
+            res.status(201).json({
+                message: 'data berhasil di tambah',
+                data: result
+            })
+        })
+        .catch(err => console.log(err))
+}
+
+exports.get = (req, res, next) => {
+    let totalItems;
+
+    panduan.find()
+        .countDocuments()
+        .then(count => {
+            totalItems = count
+            return panduan.find()
+        })
+        .then(result => {
+            res.status(200).json({
+                message: 'data di dapatkan',
+                data: result,
+                total_data: totalItems
+            })
+        })
+        .catch(err => {
+            next(err)
+        })
+}

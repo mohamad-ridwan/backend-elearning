@@ -2,39 +2,51 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const user = new Schema({
-    name: {
+const absensi = new Schema({
+    statusAbsen: {
         type: String
     },
-    email: {
+    tanggal: {
         type: String
     },
-    image: {
+    matakuliah: {
         type: String
     },
-    password: {
+    pertemuan: {
         type: String
     },
-    nim: {
+    rangkuman: {
         type: String
     },
-    class: {
+    beritaAcara: {
         type: String
     },
     campus: {
         type: String
     },
+    class: {
+        type: String
+    },
     major: {
         type: String
     },
-    statusSemester: {
+    dosen: {
         type: String
     },
-    noAbsen: {
+    semester: {
         type: String
+    },
+    path: {
+        type: String
+    },
+    absen: {
+        type: Array
+    },
+    dataAbsen: {
+        type: Array
     }
 }, {
     timestamps: true
 })
 
-module.exports = mongoose.model('user', user)
+module.exports = mongoose.model('absensi', absensi)
