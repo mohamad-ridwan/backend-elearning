@@ -4,15 +4,15 @@ exports.post = (req, res, next) => {
     const id = req.body.id
     const name = req.body.name
     const icon = req.body.icon
-    const link = req.body.link
-    const nameBtnCollapse = req.body.name
-    const linkBtnCollapse = req.body.link
+    const youtube = req.body.youtube
+    const file = req.file.path
 
     const post = new panduan({
         id: id,
         name: name,
         icon: icon,
-        link: link
+        youtube: youtube,
+        image: file
     })
 
     post.save()

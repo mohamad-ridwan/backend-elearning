@@ -12,7 +12,10 @@ const panduan = new Schema({
     icon: {
         type: String
     },
-    link: {
+    youtube: {
+        type: String
+    },
+    image: {
         type: String
     }
 }, {

@@ -19,7 +19,6 @@ const userRoutes = require('./src/routes/user')
 const logowebRoutes = require('./src/routes/logoweb')
 const panduanRoutes = require('./src/routes/panduan')
 const jadwalKuliahRoutes = require('./src/routes/jadwalkuliah')
-const absensiRoutes = require('./src/routes/absensi')
 const dashboardRoutes = require('./src/routes/dashboard')
 const verifikasiToken = require('./src/routes/validate-token')
 
@@ -28,7 +27,7 @@ const fileStorage = multer.diskStorage({
         cb(null, 'images')
     },
     filename: (req, file, cb) => {
-        cb(null, 'photo' + '-' + file.originalname)
+        cb(null, 'E-learning' + '-' + `${new Date().getTime()}` + '-' + file.originalname)
     }
 })
 
@@ -44,7 +43,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 app.use('/images', express.static(path.join(__dirname, 'images')))
-app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'))
+app.use(multer({ storage: fileStorage }).single('image'))
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -59,7 +58,6 @@ app.use('/v2/logoweb', logowebRoutes)
 app.use('/v3/panduan', panduanRoutes)
 app.use('/v4/jadwal-kuliah', jadwalKuliahRoutes)
 app.use('/v5/dashboard', verifikasiToken, dashboardRoutes)
-app.use('/v5/absensi', absensiRoutes)
 
 app.use((error, req, res, next) => {
     const status = error.errorStatus || 500;

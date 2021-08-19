@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const jadwalKuliah = new Schema({
+    id: {
+        type: String
+    },
     matakuliah: {
         type: String
     },
@@ -78,6 +81,9 @@ const jadwalKuliah = new Schema({
     komplain: {
         type: String
     },
+    dataNilaiTugas: {
+        type: Array
+    }
 }, {
     timestamps: true
 })
