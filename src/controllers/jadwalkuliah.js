@@ -226,7 +226,7 @@ exports.ruangMateri = (req, res, next) => {
         data: []
     }
 
-    jadwalkuliah.updateOne(
+    jadwalKuliah.updateOne(
         { _id: _id },
         { $push: { ruangMateri: data } },
         { upsert: true }
@@ -294,11 +294,13 @@ exports.videoPembelajaran = (req, res, next) => {
     const linkEmbedYoutube = req.body.linkEmbedYoutube
     const title = req.body.title
     const date = req.body.date
+    const deskripsi = req.body.deskripsi
 
     const data = {
         linkEmbedYoutube: linkEmbedYoutube,
         title: title,
-        date: date
+        date: date,
+        deskripsi: deskripsi
     }
 
     const updateDocument = {
@@ -441,7 +443,7 @@ exports.postDataNilaiTugas = async (req, res, next) => {
         }
     }
 
-    jadwalkuliah.updateOne(
+    jadwalKuliah.updateOne(
         { _id: _id },
         { $push: { dataNilaiTugas: data } },
         { upsert: true }
