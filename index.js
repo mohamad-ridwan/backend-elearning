@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors())
 
-dotenv.config();
+dotenv.config()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
