@@ -6,7 +6,7 @@ const path = require('path')
 const dotenv = require('dotenv')
 const cors = require('cors')
 
-const app = express()
+const app = express();
 
 app.use(cors())
 
