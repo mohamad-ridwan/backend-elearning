@@ -55,7 +55,7 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 })
 
-const PORT = process.env.PORT || 6300
+const PORT = process.env.MONGO_DB_URI || 'mongodb+srv://ridwan:ugELM2oeKdlMmVR9@cluster0.mtciq.mongodb.net/elearning?retryWrites=true&w=majority'
 
 mongoose.connect('mongodb+srv://ridwan:ugELM2oeKdlMmVR9@cluster0.mtciq.mongodb.net/elearning?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
     .then((res) => {
