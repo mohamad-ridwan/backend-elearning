@@ -55,10 +55,19 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 })
 
-const PORT = process.env.MONGO_DB_URI || 'mongodb+srv://ridwan:ugELM2oeKdlMmVR9@cluster0.mtciq.mongodb.net/elearning?retryWrites=true&w=majority'
+const uri = process.env.MONGO_DB_URI
 
-mongoose.connect('mongodb+srv://ridwan:ugELM2oeKdlMmVR9@cluster0.mtciq.mongodb.net/elearning?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((res) => {
-        app.listen(PORT, () => console.log(`Server connect on ${PORT}`))
-    })
-    .catch((err) => console.log(err))
+const PORT = process.env.PORT || 6300
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+
+const connection = mongoose.connection;
+
+connection.once('open', () => {
+    console.log("MongoDB database connection has been established successfully.");
+})
+
+// Listener
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
+})
