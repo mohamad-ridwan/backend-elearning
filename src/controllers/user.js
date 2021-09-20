@@ -80,7 +80,7 @@ exports.login = async (req, res, next) => {
 }
 
 exports.forgotPassword = async (req, res, next) => {
-    const getUser = await user.findOne({ nim: req.body.email })
+    const getUser = await user.findOne({ email: req.body.email })
 
     if (!getUser) {
         return res.status(400).json({ error: 'Email tidak terdaftar pada sistem!' })
