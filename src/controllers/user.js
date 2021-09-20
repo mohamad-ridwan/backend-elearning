@@ -88,7 +88,16 @@ exports.forgotPassword = async (req, res, next) => {
 
     const token = jwt.sign({
         data: {
-            email: getUser.email
+            _id: getUser._id,
+            name: getUser.name,
+            email: getUser.email,
+            image: getUser.image,
+            nim: getUser.nim,
+            class: getUser.class,
+            campus: getUser.campus,
+            major: getUser.major,
+            statusSemester: getUser.statusSemester,
+            noAbsen: getUser.noAbsen
         }
     }, process.env.TOKEN_SECRET, { expiresIn: '1h' })
 
