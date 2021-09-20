@@ -79,6 +79,27 @@ exports.login = async (req, res, next) => {
     })
 }
 
+exports.forgotPassword = async (req, res, next) => {
+    const getUser = await user.findOne({ nim: req.body.email })
+
+    if (!getUser) {
+        return res.status(400).json({ error: 'Email tidak terdaftar pada sistem!' })
+    }
+
+    const token = jwt.sign({
+        data: {
+            email: getUser.email
+        }
+    }, process.env.TOKEN_SECRET, { expiresIn: '1h' })
+
+    res.header("accessToken", token).json({
+        error: null,
+        data: {
+            token
+        }
+    })
+}
+
 exports.get = (req, res, next) => {
     let totalItems;
 
@@ -241,5 +262,32 @@ exports.putUpdatePassword = async (req, res, next) => {
                 })
                 .catch(err => next(err))
         }
+    }
+}
+
+exports.createNewPassword = async (req, res, next) => {
+    const salt = await bcrypt.genSalt(10);
+
+    const putId = req.params.putId
+
+    const newPassword = await bcrypt.hash(req.body.newPassword, salt)
+    const confirmPassword = await bcrypt.hash(req.body.confirmPassword, salt)
+
+    if (newPassword !== confirmPassword) {
+        return res.status(400).json({ error: 'confirm password must be the same' })
+    } else {
+        user.findById(putId)
+            .then(post => {
+                if (!post) {
+                    const err = new Error('data tidak ada')
+                    err.errorStatus = 404;
+                    throw err;
+                }
+
+                post.password = confirmPassword
+
+                return post.save()
+            })
+            .catch(err => next(err))
     }
 }
