@@ -274,7 +274,7 @@ exports.putUpdatePassword = async (req, res, next) => {
     }
 }
 
-exports.createNewPassword = async (req, res, next) => {
+exports.ubahPassword = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
 
     const putId = req.params.putId
@@ -292,9 +292,16 @@ exports.createNewPassword = async (req, res, next) => {
                     err.errorStatus = 404;
                     throw err;
                 }
+
                 post.password = confirmPassword
 
                 return post.save()
+            })
+            .then(result => {
+                res.status(200).json({
+                    message: 'berhasil ubah password',
+                    data: result
+                })
             })
             .catch(err => next(err))
     }
