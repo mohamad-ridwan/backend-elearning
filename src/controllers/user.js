@@ -292,7 +292,6 @@ exports.createNewPassword = async (req, res, next) => {
                     err.errorStatus = 404;
                     throw err;
                 }
-
                 post.password = confirmPassword
 
                 return post.save()
