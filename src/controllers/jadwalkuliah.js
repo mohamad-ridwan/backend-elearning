@@ -591,6 +591,7 @@ exports.putDataNilaiTugas = async (req, res, next) => {
                 data: result
             })
         })
+        .catch(err => console.log(err))
 }
 
 exports.putTimeZone = (req, res, next) => {
@@ -619,6 +620,31 @@ exports.putTimeZone = (req, res, next) => {
             })
         })
         .catch(err => next(err))
+}
+
+exports.putAuthorKomentar = (req, res, next) => {
+    const id = req.params.id
+    const image = req.body.image
+
+    const updateDocument = {
+        $set: { "ruangDiskusi.$[property].komentar.$[author].author.image": image }
+    }
+
+    const options = {
+        arrayFilters: [
+            { "property.komentar.author.nim": id },
+            { "author.author.nim": id }
+        ]
+    }
+
+    jadwalKuliah.updateMany({}, updateDocument, options)
+        .then(result => {
+            res.status(201).json({
+                message: 'image author user pada komentar berhasil di update',
+                data: result
+            })
+        })
+        .catch(err => console.log(err))
 }
 
 exports.deleteRuangDiskusi = (req, res, next) => {

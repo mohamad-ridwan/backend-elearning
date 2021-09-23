@@ -18,6 +18,7 @@ router.post('/post/matakuliah/ruang-diskusi/:_id', jadwalKuliahControllers.ruang
 router.post('/post/matakuliah/ruang-diskusi/komentar/:_id/:id', jadwalKuliahControllers.komentarDiskusi)
 router.put('/put/matakuliah/data-nilai-tugas/:_id/:id', jadwalKuliahControllers.putDataNilaiTugas)
 router.put('/put/matakuliah/jadwal-absen/time-zone/:_id', jadwalKuliahControllers.putTimeZone)
+router.put('/put/matakuliah/ruang-diskusi/komentar/author/:id', jadwalKuliahControllers.putAuthorKomentar)
 router.get('/get/matakuliah', jadwalKuliahControllers.allMatakuliah)
 router.get('/get/matakuliah/one-matkul/:path', jadwalKuliahControllers.oneMatkul)
 router.delete('/delete/matakuliah/ruang-diskusi/:_id/:id', jadwalKuliahControllers.deleteRuangDiskusi)
