@@ -170,6 +170,11 @@ exports.putInformasiProfile = (req, res, next) => {
                     token
                 }
             })
+
+            res.status(201).json({
+                message: 'success update',
+                image: result.image
+            })
         })
         .catch(err => next(err))
 }
