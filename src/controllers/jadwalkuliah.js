@@ -620,10 +620,45 @@ exports.putTimeZone = (req, res, next) => {
             return post.save()
         })
         .then(result => {
-            res.status(201).json({
-                message: 'berhasil update timeZone',
-                data: result
-            })
+            const updateDocumentJamMasuk = {
+                $set: { "absensi.$[property].jamMasuk": `Jam Masuk ~ ${jamMasuk} ~ fas fa-clock` }
+            }
+
+            const optionsJamMasuk = {
+                arrayFilters: [
+                    {
+                        "property.id": 'data-card-absen'
+                    }
+                ]
+            }
+
+            const updateDocumentJamKeluar = {
+                $set: { "absensi.$[property].jamKeluar": `Jam Keluar ~ ${jamKeluar} ~ far fa-clock` }
+            }
+
+            const optionsJamKeluar = {
+                arrayFilters: [
+                    {
+                        "property.id": 'data-card-absen'
+                    }
+                ]
+            }
+
+            jadwalKuliah.updateOne({ _id: _id }, updateDocumentJamMasuk, optionsJamMasuk)
+                .then(result => {
+                    jadwalKuliah.updateOne({ _id: _id }, updateDocumentJamKeluar, optionsJamKeluar)
+                        .then(result => {
+                            res.status(201).json({
+                                message: 'berhasil update jam matakuliah',
+                                data: result
+                            })
+                        })
+                        .catch(err => console.log(err))
+                    return result;
+                })
+                .catch(err => console.log(err))
+
+            return result;
         })
         .catch(err => next(err))
 }
