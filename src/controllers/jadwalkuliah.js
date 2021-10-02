@@ -611,7 +611,7 @@ exports.putTimeZone = (req, res, next) => {
                 throw err;
             }
 
-            post.hari = hari
+            post.hari = hari.toUpperCase()
             post.jamMasuk = jamMasuk
             post.jamKeluar = jamKeluar
             post.timeZoneMasuk = timeZoneMasuk
