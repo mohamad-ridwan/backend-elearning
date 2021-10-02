@@ -644,14 +644,31 @@ exports.putTimeZone = (req, res, next) => {
                 ]
             }
 
+            const updateDocumentHari = {
+                $set: { "absensi.$[property].hari": `Hari ~ ${hari} ~ far fa-calendar-alt` }
+            }
+
+            const optionsHari = {
+                arrayFilters: [
+                    {
+                        "property.id": 'data-card-absen'
+                    }
+                ]
+            }
+
             jadwalKuliah.updateOne({ _id: _id }, updateDocumentJamMasuk, optionsJamMasuk)
                 .then(result => {
                     jadwalKuliah.updateOne({ _id: _id }, updateDocumentJamKeluar, optionsJamKeluar)
                         .then(result => {
-                            res.status(201).json({
-                                message: 'berhasil update jam matakuliah',
-                                data: result
-                            })
+                            jadwalKuliah.updateOne({ _id: _id }, updateDocumentHari, optionsHari)
+                                .then(result => {
+                                    res.status(201).json({
+                                        message: 'berhasil update jam matakuliah',
+                                        data: result
+                                    })
+                                })
+                                .catch(err => console.log(err))
+                            return result;
                         })
                         .catch(err => console.log(err))
                     return result;
