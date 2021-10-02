@@ -598,6 +598,8 @@ exports.putTimeZone = (req, res, next) => {
     const _id = req.params._id
 
     const hari = req.body.hari
+    const jamMasuk = req.body.jamMasuk
+    const jamKeluar = req.body.jamKeluar
     const timeZoneMasuk = new Date(req.body.timeZoneMasuk)
     const timeZoneKeluar = new Date(req.body.timeZoneKeluar)
 
@@ -610,6 +612,8 @@ exports.putTimeZone = (req, res, next) => {
             }
 
             post.hari = hari
+            post.jamMasuk = jamMasuk
+            post.jamKeluar = jamKeluar
             post.timeZoneMasuk = timeZoneMasuk
             post.timeZoneKeluar = timeZoneKeluar
 
