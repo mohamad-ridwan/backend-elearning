@@ -597,6 +597,7 @@ exports.putDataNilaiTugas = async (req, res, next) => {
 exports.putTimeZone = (req, res, next) => {
     const _id = req.params._id
 
+    const hari = req.body.hari
     const timeZoneMasuk = new Date(req.body.timeZoneMasuk)
     const timeZoneKeluar = new Date(req.body.timeZoneKeluar)
 
@@ -608,6 +609,7 @@ exports.putTimeZone = (req, res, next) => {
                 throw err;
             }
 
+            post.hari = hari
             post.timeZoneMasuk = timeZoneMasuk
             post.timeZoneKeluar = timeZoneKeluar
 
