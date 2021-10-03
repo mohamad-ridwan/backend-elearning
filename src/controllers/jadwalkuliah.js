@@ -600,8 +600,8 @@ exports.putTimeZone = (req, res, next) => {
     const hari = req.body.hari
     const jamMasuk = req.body.jamMasuk
     const jamKeluar = req.body.jamKeluar
-    const timeZoneMasuk = new Date(`${req.body.timeZoneMasuk} GMT+07:00`)
-    const timeZoneKeluar = new Date(`${req.body.timeZoneKeluar} GMT+07:00`)
+    const timeZoneMasuk = new Date(`${req.body.timeZoneMasuk} GMT+0700 (Waktu Indonesia Barat)`)
+    const timeZoneKeluar = new Date(`${req.body.timeZoneKeluar} GMT+0700 (Waktu Indonesia Barat)`)
 
     jadwalKuliah.findById(_id)
         .then(post => {
