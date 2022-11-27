@@ -21,13 +21,19 @@ const PORT = process.env.PORT || 6300
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(uri)
+        const conn = await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         console.log(`MongoDB Connected: ${conn.connection.host}`)
     } catch (error) {
         console.log(error)
         process.exit(1)
     }
 }
+
+const connection = mongoose.connection;
+
+connection.once('open', () => {
+    console.log("MongoDB database connection has been established successfully.");
+})
 
 const userRoutes = require('./src/routes/user')
 const logowebRoutes = require('./src/routes/logoweb')
