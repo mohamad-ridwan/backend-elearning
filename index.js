@@ -68,8 +68,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     })
 })
 
-const connection = mongoose.connection;
+// const connection = mongoose.connection;
 
-connection.once('open', () => {
-    console.log("MongoDB database connection has been established successfully.");
-})
+// connection.once('open', () => {
+//     console.log("MongoDB database connection has been established successfully.");
+// })
