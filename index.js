@@ -15,6 +15,20 @@ dotenv.config()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+const uri = process.env.MONGO_DB_URI
+
+const PORT = process.env.PORT || 6300
+
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(uri)
+        console.log(`MongoDB Connected: ${conn.connection.host}`)
+    } catch (error) {
+        console.log(error)
+        process.exit(1)
+    }
+}
+
 const userRoutes = require('./src/routes/user')
 const logowebRoutes = require('./src/routes/logoweb')
 const panduanRoutes = require('./src/routes/panduan')
@@ -57,16 +71,18 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 })
 
-const uri = process.env.MONGO_DB_URI
-
-const PORT = process.env.PORT || 6300
-
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    // Listener
+connectDB().then(() => {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`)
     })
 })
+
+// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+//     // Listener
+//     app.listen(PORT, () => {
+//         console.log(`Server is running on port ${PORT}`)
+//     })
+// })
 
 // const connection = mongoose.connection;
 
