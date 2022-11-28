@@ -131,7 +131,7 @@ exports.get = (req, res, next) => {
 }
 
 exports.putInformasiProfile = (req, res, next) => {
-    const image = req.file.path
+    const image = req.body.image
     const email = req.body.email
     const putId = req.params.putId
 
