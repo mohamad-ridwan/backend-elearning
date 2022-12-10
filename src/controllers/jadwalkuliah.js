@@ -252,7 +252,7 @@ exports.materiTambahan = async (req, res, next) => {
     const kelas = req.body.kelas
     const judul = req.body.judul
     const deskripsi = req.body.deskripsi
-    const file = req.file.path
+    const file = req.body.image
     const update = req.body.update
 
     const data = {
@@ -330,7 +330,7 @@ exports.slidePembelajaran = (req, res, next) => {
     const _id = req.params._id
     const id = req.params.id
     const icon = req.body.icon
-    const image = req.file.path
+    const image = req.body.image
     const name = req.body.name
 
     const data = {
@@ -376,7 +376,7 @@ exports.ruangTugas = async (req, res, next) => {
     const mulai = req.body.mulai
     const selesai = req.body.selesai
     const created = req.body.created
-    const aksi = req.file.path
+    const aksi = req.body.image
 
     const data = {
         number: number,
@@ -467,7 +467,7 @@ exports.ruangDiskusi = (req, res, next) => {
     const kelas = req.body.kelas
     const gmail = req.body.gmail
     const date = req.body.date
-    const file = req.file && req.file.path ? req.file.path : ' '
+    const file = req.body.image
 
     const data = {
         id: `${id}`,

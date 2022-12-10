@@ -5,7 +5,7 @@ exports.post = (req, res, next) => {
     const name = req.body.name
     const icon = req.body.icon
     const youtube = req.body.youtube
-    const file = req.file.path
+    const file = req.body.image
 
     const post = new panduan({
         id: id,
