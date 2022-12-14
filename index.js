@@ -42,6 +42,7 @@ const jadwalKuliahRoutes = require('./src/routes/jadwalkuliah')
 const dashboardRoutes = require('./src/routes/dashboard')
 const tokenVerifikasiRoutes = require('./src/routes/tokenverifikasi')
 const verifikasiToken = require('./src/routes/validate-token')
+const tokendbRoutes = require('./src/routes/tokendb')
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -69,6 +70,7 @@ app.use('/v3/panduan', panduanRoutes)
 app.use('/v4/jadwal-kuliah', jadwalKuliahRoutes)
 app.use('/v5/dashboard', verifikasiToken, dashboardRoutes)
 app.use('/v6/verifikasi-new-password', verifikasiToken, tokenVerifikasiRoutes)
+app.use('/v7/tokendb', tokendbRoutes)
 
 app.use((error, req, res, next) => {
     const status = error.errorStatus || 500;

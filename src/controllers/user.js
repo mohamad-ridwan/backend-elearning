@@ -104,7 +104,8 @@ exports.forgotPassword = async (req, res, next) => {
     res.header("accessToken", token).json({
         error: null,
         data: {
-            token
+            token: token,
+            name: getUser.name
         }
     })
 }
