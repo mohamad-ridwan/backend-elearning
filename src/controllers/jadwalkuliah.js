@@ -595,6 +595,9 @@ exports.putDataNilaiTugas = async (req, res, next) => {
 }
 
 exports.putTimeZone = (req, res, next) => {
+    // FORMAT TIME ZONE
+    // timeZoneMasuk = Sun Aug 01 2023 01:00:00
+    // timeZoneKeluar = Sun Aug 01 2023 23:59:00
     const _id = req.params._id
 
     const hari = req.body.hari
